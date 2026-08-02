@@ -1,0 +1,224 @@
+/* Flagful site — palette mirrors src/theme/tokens.ts in the app repo.
+   System font stack on purpose: loading Google Fonts would send every
+   visitor's IP address to Google, which is a poor look on a privacy policy
+   (and has been held to be a GDPR violation in the EU). */
+
+:root {
+  --cream: #fff8e9;
+  --paper: #fbf6e7;
+  --surface: #fbefd0;
+  --border: #d8bc84;
+  --border-light: #e5d0a7;
+  --ink: #0d4750;
+  --text: #2b3330;
+  --text-muted: #666457;
+  --amber: #b87312;
+  --shadow: rgba(140, 111, 54, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--cream);
+  color: var(--text);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-text-size-adjust: 100%;
+}
+
+.wrap {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+header.site {
+  border-bottom: 1px solid var(--border-light);
+  background: var(--paper);
+}
+
+header.site .wrap {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+header.site a.brand {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+header.site nav {
+  margin-left: auto;
+  display: flex;
+  gap: 1.25rem;
+}
+
+header.site nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+header.site nav a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+}
+
+h1 {
+  color: var(--ink);
+  font-size: 2.1rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.5rem;
+}
+
+h2 {
+  color: var(--ink);
+  font-size: 1.3rem;
+  margin: 2.75rem 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  color: var(--ink);
+  font-size: 1.05rem;
+  margin: 1.75rem 0 0.5rem;
+}
+
+p,
+li {
+  color: var(--text);
+}
+
+a {
+  color: var(--ink);
+}
+
+.meta {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0 0 2rem;
+}
+
+.callout {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.1rem 1.35rem;
+  margin: 1.75rem 0;
+  box-shadow: 0 5px 11px var(--shadow);
+}
+
+.callout p:first-child {
+  margin-top: 0;
+}
+
+.callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* Unfilled facts. Deliberately loud — an unreplaced placeholder must be
+   impossible to miss on a published page. */
+.todo {
+  background: #ffe08a;
+  border-bottom: 2px solid var(--amber);
+  color: #5c3a05;
+  font-weight: 700;
+  padding: 0.05em 0.35em;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.92em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  font-size: 0.95rem;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+}
+
+th {
+  color: var(--ink);
+  font-weight: 700;
+  border-bottom: 2px solid var(--border);
+}
+
+ul {
+  padding-left: 1.35rem;
+}
+
+li {
+  margin: 0.35rem 0;
+}
+
+footer.site {
+  border-top: 1px solid var(--border-light);
+  margin-top: 3rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+footer.site .wrap {
+  padding-top: 1.5rem;
+  padding-bottom: 2.5rem;
+}
+
+footer.site a {
+  color: var(--text-muted);
+}
+
+/* The child-facing summary reads at a much larger size on purpose — the UK
+   Children's Code asks for age-appropriate presentation, not just plain words. */
+body.kids {
+  font-size: 20px;
+  line-height: 1.7;
+}
+
+body.kids h1 {
+  font-size: 2rem;
+}
+
+body.kids h2 {
+  font-size: 1.45rem;
+  margin-top: 2.25rem;
+}
+
+@media (max-width: 34rem) {
+  body {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  .wrap {
+    padding-top: 1.75rem;
+  }
+}
