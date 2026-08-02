@@ -4,6 +4,38 @@ Static site serving the privacy policy required for Google Play and App Store
 submission. Plain HTML and one stylesheet — no build step, no dependencies, no
 third-party requests (fonts included, deliberately).
 
+## Design
+
+The pages use the app's notebook chassis: warm cream paper with a fibre texture,
+a spiral binding gutter with punched rings, dashed cut-lines, and parchment
+callouts. Palette, radii and the shadow in `style.css` are transcribed from
+`src/theme/tokens.ts` in the app repo — if a token moves there, move it here too.
+
+Two rules inherited from the app's visual language are worth preserving:
+
+- **One shadow language.** Every raised surface takes `--shadow`. Nothing gets a
+  bespoke drop shadow.
+- **Colour is never the only signal.** The ✕ and ✓ lists differ by glyph as well
+  as tint, so they still read without colour vision.
+
+## Assets
+
+`assets/` holds web-sized derivatives of first-party artwork from the app repo —
+Flaggy, the logo, the paper texture and three icons — re-encoded to WebP at
+display size (1024px originals down to 10–30 KB each). The whole directory is
+~400 KB including fonts.
+
+Fonts are **self-hosted**: Crimson Pro 700 for headings, Nunito 400/700 for body,
+converted from the app's bundled TTFs to WOFF2. Requesting them from Google would
+send every visitor's IP address to Google, which is a poor look on a privacy
+policy and has been held to breach the GDPR in the EU. Both are SIL Open Font
+License; the licence text ships alongside them in `assets/fonts/`, which also
+satisfies part of the attribution work tracked in `docs/compliance.md` §5.6.
+
+To regenerate the images after changing the originals, run a `sharp` resize from
+the **app** repo (it has the dependency): widths 400 for the logo, 320–560 for
+the mascots, 900 for the texture at quality 52, 96–128 for icons.
+
 Source of truth for the policy's factual claims is `docs/compliance.md` §3 in the
 app repo, which was written by reading the code.
 

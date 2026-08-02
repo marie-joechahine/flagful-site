@@ -8,328 +8,358 @@
       name="description"
       content="What Flagful collects, what it does not, and how to exercise your rights."
     />
+    <link rel="icon" href="assets/favicon.png" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header class="site">
       <div class="wrap">
-        <a class="brand" href="/">Flagful</a>
+        <a class="brand" href="/"
+          ><img src="assets/logo.webp" alt="Flagful" /></a
+        >
         <nav>
-          <a href="/privacy.html">Privacy</a>
+          <a href="/">Home</a>
+          <a href="/privacy.html" aria-current="page">Privacy</a>
           <a href="/privacy-kids.html">For kids</a>
         </nav>
       </div>
     </header>
 
     <main class="wrap">
-      <h1>Privacy Policy</h1>
-      <p class="meta">
-        Effective <span class="todo">[[PUBLISH_DATE]]</span> · Last updated
-        <span class="todo">[[PUBLISH_DATE]]</span>
-      </p>
+      <article class="notebook">
+        <div class="hero compact">
+          <div class="hero-copy">
+            <h1>Privacy Policy</h1>
+            <p class="meta">
+              Effective <span class="todo">[[PUBLISH_DATE]]</span> · Last
+              updated <span class="todo">[[PUBLISH_DATE]]</span>
+            </p>
+          </div>
+          <img
+            class="mascot"
+            src="assets/flaggy-thinking.webp"
+            alt=""
+            role="presentation"
+          />
+        </div>
 
-      <div class="callout">
-        <p><strong>The short version.</strong></p>
+        <div class="callout with-icon">
+          <div class="medallion">
+            <img src="assets/icon-lock.webp" alt="" role="presentation" />
+          </div>
+          <div>
+            <p><strong>The short version.</strong></p>
+            <p>
+              Flagful has no accounts and no server of its own. Your drawings,
+              your scores and your progress never leave your device. The app
+              does send anonymous usage statistics and crash reports so we can
+              fix bugs and understand which lessons work. It has no ads, asks
+              for no personal details, and contains no place to type free text
+              anywhere.
+            </p>
+            <p>
+              There is a shorter version written for children at
+              <a href="/privacy-kids.html">What Flagful knows about you</a>.
+            </p>
+          </div>
+        </div>
+
         <p>
-          Flagful has no accounts and no server of its own. Your drawings, your
-          scores and your progress never leave your device. The app does send
-          anonymous usage statistics and crash reports so we can fix bugs and
-          understand which lessons work. It has no ads, asks for no personal
-          details, and contains no place to type free text anywhere.
+          This policy explains how Flagful (the &ldquo;app&rdquo;) handles
+          information. Flagful is published by
+          <span class="todo">[[LEGAL_ENTITY]]</span> (&ldquo;we&rdquo;,
+          &ldquo;us&rdquo;), <span class="todo">[[POSTAL_ADDRESS]]</span>.
+        </p>
+
+        <h2><span class="num">1</span> What Flagful never collects</h2>
+        <p>
+          Flagful does not ask for, receive or store any of the following. There
+          is no mechanism in the app to provide them:
+        </p>
+        <ul class="nope">
+          <li>No account, username, password or sign-in of any kind</li>
+          <li>No name, email address, phone number or date of birth</li>
+          <li>No location, GPS or approximate position</li>
+          <li>No access to the camera, microphone, photos or contacts</li>
+          <li>No advertising identifier, and no advertising of any kind</li>
+          <li>No biometrics and no payment or financial details</li>
+          <li>
+            No messaging between users, and no user-generated content shared to
+            us
+          </li>
+          <li>
+            <strong>No free-text input anywhere in the app.</strong> There is no
+            comment box, feedback form, chat or search field, so it is not
+            possible to type personal information into Flagful even by accident.
+          </li>
+        </ul>
+
+        <h2><span class="num">2</span> What stays on your device</h2>
+        <p>
+          The following is stored only in the app's own storage on your device.
+          It is not transmitted to us or to anyone else, and it is deleted when
+          you uninstall the app:
+        </p>
+        <ul class="yep">
+          <li>The flags you have drawn and coloured</li>
+          <li>Your scores, stars, streaks and lesson progress</li>
+          <li>Your settings, such as sound, music and haptics</li>
+        </ul>
+
+        <h2><span class="num">3</span> What is sent off the device</h2>
+        <p>Three things leave your device. Each is described in full below.</p>
+
+        <h3>3.1 Usage analytics (PostHog)</h3>
+        <p>
+          Flagful records how the app is used so we can see which lessons are
+          confusing, where people give up, and which features are unused. Events
+          describe actions, not people — for example that a lesson step was
+          completed, that a hint was used, or that a drawing was submitted and
+          what score it received.
+        </p>
+        <p>Alongside each event we send:</p>
+        <ul>
+          <li>
+            A <strong>persistent pseudonymous device identifier</strong> — a
+            random value generated on the device the first time the app runs. It
+            is not derived from your device's hardware identifiers and is not
+            linked to your name or to any account, but it is stable across
+            sessions, which means it counts as an online identifier under the
+            GDPR and a persistent identifier under COPPA.
+          </li>
+          <li>
+            Basic device context: app version, platform (Android or iOS),
+            operating system version, device language, app language, and whether
+            the device is a phone or a tablet.
+          </li>
+        </ul>
+        <p>
+          We do <strong>not</strong> send your drawings, your images, or any
+          text. Analytics are disabled entirely in development builds. Data is
+          sent to PostHog's European servers (<code>eu.i.posthog.com</code>).
+        </p>
+
+        <h3>3.2 Crash and performance reports (Sentry)</h3>
+        <p>
+          When the app crashes or hits an error, a diagnostic report is sent so
+          we can fix it. It contains the error message and stack trace, the app
+          version, the operating system and device model, and a trail of which
+          screens were visited beforehand. A sample of sessions (20% of traces
+          and 10% of performance profiles) is also sent to find slowdowns.
         </p>
         <p>
-          There is a shorter version written for children at
-          <a href="/privacy-kids.html">What Flagful knows about you</a>.
+          Sentry is explicitly configured <em>not</em> to attach personal data:
+          IP addresses, request headers and user context are switched off in the
+          app. Reports go to Sentry's European region.
         </p>
-      </div>
 
-      <p>
-        This policy explains how Flagful (the &ldquo;app&rdquo;) handles
-        information. Flagful is published by
-        <span class="todo">[[LEGAL_ENTITY]]</span>
-        (&ldquo;we&rdquo;, &ldquo;us&rdquo;), <span class="todo">[[POSTAL_ADDRESS]]</span>.
-      </p>
-
-      <h2>1. What Flagful never collects</h2>
-      <p>
-        Flagful does not ask for, receive or store any of the following. There is
-        no mechanism in the app to provide them:
-      </p>
-      <ul>
-        <li>No account, username, password or sign-in of any kind</li>
-        <li>No name, email address, phone number or date of birth</li>
-        <li>No location, GPS or approximate position</li>
-        <li>No access to the camera, microphone, photos or contacts</li>
-        <li>No advertising identifier, and no advertising of any kind</li>
-        <li>No biometrics and no payment or financial details</li>
-        <li>No messaging between users, and no user-generated content shared to us</li>
-        <li>
-          <strong>No free-text input anywhere in the app.</strong> There is no
-          comment box, feedback form, chat or search field, so it is not possible
-          to type personal information into Flagful even by accident.
-        </li>
-      </ul>
-
-      <h2>2. What stays on your device</h2>
-      <p>
-        The following is stored only in the app's own storage on your device. It
-        is not transmitted to us or to anyone else, and it is deleted when you
-        uninstall the app:
-      </p>
-      <ul>
-        <li>The flags you have drawn and coloured</li>
-        <li>Your scores, stars, streaks and lesson progress</li>
-        <li>Your settings, such as sound, music and haptics</li>
-      </ul>
-
-      <h2>3. What is sent off the device</h2>
-      <p>Three things leave your device. Each is described in full below.</p>
-
-      <h3>3.1 Usage analytics (PostHog)</h3>
-      <p>
-        Flagful records how the app is used so we can see which lessons are
-        confusing, where people give up, and which features are unused. Events
-        describe actions, not people — for example that a lesson step was
-        completed, that a hint was used, or that a drawing was submitted and what
-        score it received.
-      </p>
-      <p>Alongside each event we send:</p>
-      <ul>
-        <li>
-          A <strong>persistent pseudonymous device identifier</strong> — a random
-          value generated on the device the first time the app runs. It is not
-          derived from your device's hardware identifiers and is not linked to
-          your name or to any account, but it is stable across sessions, which
-          means it counts as an online identifier under the GDPR and a persistent
-          identifier under COPPA.
-        </li>
-        <li>
-          Basic device context: app version, platform (Android or iOS), operating
-          system version, device language, app language, and whether the device
-          is a phone or a tablet.
-        </li>
-      </ul>
-      <p>
-        We do <strong>not</strong> send your drawings, your images, or any text.
-        Analytics are disabled entirely in development builds. Data is sent to
-        PostHog's European servers (<code>eu.i.posthog.com</code>).
-      </p>
-
-      <h3>3.2 Crash and performance reports (Sentry)</h3>
-      <p>
-        When the app crashes or hits an error, a diagnostic report is sent so we
-        can fix it. It contains the error message and stack trace, the app
-        version, the operating system and device model, and a trail of which
-        screens were visited beforehand. A sample of sessions (20% of traces and
-        10% of performance profiles) is also sent to find slowdowns.
-      </p>
-      <p>
-        Sentry is explicitly configured <em>not</em> to attach personal data:
-        IP addresses, request headers and user context are switched off in the
-        app. Reports go to Sentry's European region.
-      </p>
-
-      <h3>3.3 App update checks (Expo)</h3>
-      <p>
-        When the app starts it asks our update service whether a newer version of
-        the app's content is available. That request includes an installation
-        identifier, the app and runtime version, the platform and the operating
-        system version. It is how bug fixes reach you without waiting for an app
-        store release.
-      </p>
-
-      <h3>3.4 When you share a drawing</h3>
-      <p>
-        Tapping share opens your device's own share sheet with a picture of your
-        drawing. You choose where it goes. The image is handed to the app you
-        pick and is governed by that app's privacy policy from then on. We never
-        receive it and keep no copy.
-      </p>
-
-      <h2>4. Who processes data on our behalf</h2>
-      <div class="table-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>Provider</th>
-              <th>Purpose</th>
-              <th>Where data is stored</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>PostHog</td>
-              <td>Usage analytics (§3.1)</td>
-              <td>European Union</td>
-            </tr>
-            <tr>
-              <td>Sentry</td>
-              <td>Crash and performance reports (§3.2)</td>
-              <td>European Union (Germany)</td>
-            </tr>
-            <tr>
-              <td>Expo (650 Industries, Inc.)</td>
-              <td>App update delivery (§3.3)</td>
-              <td>United States</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p>
-        Each acts as our processor and is contractually barred from using the
-        data for its own purposes. We do not sell personal information, and we do
-        not share it for behavioural advertising — to anyone, ever.
-      </p>
-
-      <h2>5. Legal bases (EU / UK users)</h2>
-      <div class="table-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>Purpose</th>
-              <th>Legal basis</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Usage analytics (§3.1)</td>
-              <td><span class="todo">[[ANALYTICS_LEGAL_BASIS]]</span></td>
-            </tr>
-            <tr>
-              <td>Crash and performance reports (§3.2)</td>
-              <td>
-                Legitimate interests — keeping the app working and diagnosing
-                faults
-              </td>
-            </tr>
-            <tr>
-              <td>App update checks (§3.3)</td>
-              <td>
-                Performance of our agreement with you — delivering the app you
-                installed
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2>6. Children</h2>
-      <p>
-        Flagful is suitable for children and we expect children to use it. We
-        have designed it so that using it reveals as little as possible about the
-        person holding the device.
-      </p>
-      <ul>
-        <li>
-          There is no advertising in Flagful, and no behavioural or personalised
-          advertising of any kind.
-        </li>
-        <li>
-          There is nowhere in the app for a child to type their name, age,
-          location or anything else about themselves.
-        </li>
-        <li>
-          Drawings and progress stay on the device and are never uploaded.
-        </li>
-        <li>
-          We do not knowingly build profiles of individual children, and we do
-          not use the data described in §3 to target or advertise to anyone.
-        </li>
-      </ul>
-      <p>
-        <strong>Parents and guardians:</strong> you may ask what data associated
-        with a device we hold, ask us to delete it, or tell us to stop collecting
-        it. Write to <span class="todo">[[CONTACT_EMAIL]]</span>. Please see the
-        honest limitation described in §8 about pseudonymous records.
-      </p>
-
-      <h2>7. How long data is kept</h2>
-      <ul>
-        <li>
-          <strong>On your device:</strong> until you delete it in the app or
-          uninstall Flagful. We set no time limit because we cannot see it.
-        </li>
-        <li>
-          <strong>Usage analytics:</strong>
-          <span class="todo">[[POSTHOG_RETENTION]]</span>, after which records
-          are deleted.
-        </li>
-        <li>
-          <strong>Crash and performance reports:</strong>
-          <span class="todo">[[SENTRY_RETENTION]]</span>, after which records are
-          deleted.
-        </li>
-      </ul>
-
-      <h2>8. Your rights</h2>
-      <p>
-        Depending on where you live you may have the right to access, correct,
-        delete, restrict or object to the processing of your personal data, to
-        withdraw consent, and to complain to a data protection authority.
-      </p>
-      <ul>
-        <li>
-          <strong>To delete everything held on your device:</strong> uninstall
-          the app, or use the reset option in the app's settings. This is
-          immediate and needs no request to us.
-        </li>
-        <li>
-          <strong>For anything held by our processors:</strong> write to
-          <span class="todo">[[CONTACT_EMAIL]]</span> and we will respond within
-          one month.
-        </li>
-      </ul>
-      <div class="callout">
+        <h3>3.3 App update checks (Expo)</h3>
         <p>
-          <strong>A limitation we would rather state than hide.</strong> The
-          analytics and crash data described in §3 is tied to a random device
-          identifier and to no other information about you. If you write to us,
-          we generally have no way to work out which of those anonymous records
-          is yours unless you can tell us the identifier. In that situation we
-          cannot honestly promise to find and delete your specific record, and we
-          will tell you so rather than claim otherwise. Uninstalling the app
-          stops any further data being sent.
+          When the app starts it asks our update service whether a newer version
+          of the app's content is available. That request includes an
+          installation identifier, the app and runtime version, the platform and
+          the operating system version. It is how bug fixes reach you without
+          waiting for an app store release.
         </p>
-      </div>
 
-      <h2>9. International transfers</h2>
-      <p>
-        Analytics and crash data stay in the European Union. App update checks
-        (§3.3) are handled by Expo in the United States; that transfer relies on
-        the European Commission's Standard Contractual Clauses.
-      </p>
+        <h3>3.4 When you share a drawing</h3>
+        <p>
+          Tapping share opens your device's own share sheet with a picture of
+          your drawing. You choose where it goes. The image is handed to the app
+          you pick and is governed by that app's privacy policy from then on. We
+          never receive it and keep no copy.
+        </p>
 
-      <h2>10. Security</h2>
-      <p>
-        All data sent by the app travels over encrypted connections. Because
-        Flagful holds no accounts, no passwords and no directly identifying
-        information, the consequences of any incident are limited by design. We
-        maintain a written information security policy covering who is
-        responsible and the risks it addresses.
-      </p>
+        <h2><span class="num">4</span> Who processes data on our behalf</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Provider</th>
+                <th>Purpose</th>
+                <th>Where data is stored</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PostHog</td>
+                <td>Usage analytics (§3.1)</td>
+                <td>European Union</td>
+              </tr>
+              <tr>
+                <td>Sentry</td>
+                <td>Crash and performance reports (§3.2)</td>
+                <td>European Union (Germany)</td>
+              </tr>
+              <tr>
+                <td>Expo (650 Industries, Inc.)</td>
+                <td>App update delivery (§3.3)</td>
+                <td>United States</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Each acts as our processor and is contractually barred from using the
+          data for its own purposes. We do not sell personal information, and we
+          do not share it for behavioural advertising — to anyone, ever.
+        </p>
 
-      <h2>11. Changes to this policy</h2>
-      <p>
-        If we change what the app collects, we will update this page and change
-        the &ldquo;last updated&rdquo; date above before the change reaches you.
-        Significant changes will also be noted in the app.
-      </p>
+        <h2><span class="num">5</span> Legal bases (EU / UK users)</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Purpose</th>
+                <th>Legal basis</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Usage analytics (§3.1)</td>
+                <td><span class="todo">[[ANALYTICS_LEGAL_BASIS]]</span></td>
+              </tr>
+              <tr>
+                <td>Crash and performance reports (§3.2)</td>
+                <td>
+                  Legitimate interests — keeping the app working and diagnosing
+                  faults
+                </td>
+              </tr>
+              <tr>
+                <td>App update checks (§3.3)</td>
+                <td>
+                  Performance of our agreement with you — delivering the app you
+                  installed
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-      <h2>12. Contact</h2>
-      <p>
-        Questions about this policy, requests about your data, and parental
-        requests about a child's data all go to
-        <span class="todo">[[CONTACT_EMAIL]]</span>.
-      </p>
-      <p class="todo">[[EU_REPRESENTATIVE_BLOCK_OR_DELETE]]</p>
+        <h2><span class="num">6</span> Children</h2>
+        <p>
+          Flagful is suitable for children and we expect children to use it. We
+          have designed it so that using it reveals as little as possible about
+          the person holding the device.
+        </p>
+        <ul class="yep">
+          <li>
+            There is no advertising in Flagful, and no behavioural or
+            personalised advertising of any kind.
+          </li>
+          <li>
+            There is nowhere in the app for a child to type their name, age,
+            location or anything else about themselves.
+          </li>
+          <li>Drawings and progress stay on the device and are never uploaded.</li>
+          <li>
+            We do not knowingly build profiles of individual children, and we do
+            not use the data described in §3 to target or advertise to anyone.
+          </li>
+        </ul>
+        <p>
+          <strong>Parents and guardians:</strong> you may ask what data
+          associated with a device we hold, ask us to delete it, or tell us to
+          stop collecting it. Write to
+          <span class="todo">[[CONTACT_EMAIL]]</span>. Please see the honest
+          limitation described in §8 about pseudonymous records.
+        </p>
+
+        <h2><span class="num">7</span> How long data is kept</h2>
+        <ul>
+          <li>
+            <strong>On your device:</strong> until you delete it in the app or
+            uninstall Flagful. We set no time limit because we cannot see it.
+          </li>
+          <li>
+            <strong>Usage analytics:</strong>
+            <span class="todo">[[POSTHOG_RETENTION]]</span>, after which records
+            are deleted.
+          </li>
+          <li>
+            <strong>Crash and performance reports:</strong>
+            <span class="todo">[[SENTRY_RETENTION]]</span>, after which records
+            are deleted.
+          </li>
+        </ul>
+
+        <h2><span class="num">8</span> Your rights</h2>
+        <p>
+          Depending on where you live you may have the right to access, correct,
+          delete, restrict or object to the processing of your personal data, to
+          withdraw consent, and to complain to a data protection authority.
+        </p>
+        <ul>
+          <li>
+            <strong>To delete everything held on your device:</strong> uninstall
+            the app, or use the reset option in the app's settings. This is
+            immediate and needs no request to us.
+          </li>
+          <li>
+            <strong>For anything held by our processors:</strong> write to
+            <span class="todo">[[CONTACT_EMAIL]]</span> and we will respond
+            within one month.
+          </li>
+        </ul>
+        <div class="callout note with-icon">
+          <div class="medallion">
+            <img src="assets/icon-bulb.webp" alt="" role="presentation" />
+          </div>
+          <div>
+            <p>
+              <strong>A limitation we would rather state than hide.</strong> The
+              analytics and crash data described in §3 is tied to a random
+              device identifier and to no other information about you. If you
+              write to us, we generally have no way to work out which of those
+              anonymous records is yours unless you can tell us the identifier.
+              In that situation we cannot honestly promise to find and delete
+              your specific record, and we will tell you so rather than claim
+              otherwise. Uninstalling the app stops any further data being sent.
+            </p>
+          </div>
+        </div>
+
+        <h2><span class="num">9</span> International transfers</h2>
+        <p>
+          Analytics and crash data stay in the European Union. App update checks
+          (§3.3) are handled by Expo in the United States; that transfer relies
+          on the European Commission's Standard Contractual Clauses.
+        </p>
+
+        <h2><span class="num">10</span> Security</h2>
+        <p>
+          All data sent by the app travels over encrypted connections. Because
+          Flagful holds no accounts, no passwords and no directly identifying
+          information, the consequences of any incident are limited by design.
+          We maintain a written information security policy covering who is
+          responsible and the risks it addresses.
+        </p>
+
+        <h2><span class="num">11</span> Changes to this policy</h2>
+        <p>
+          If we change what the app collects, we will update this page and
+          change the &ldquo;last updated&rdquo; date above before the change
+          reaches you. Significant changes will also be noted in the app.
+        </p>
+
+        <h2><span class="num">12</span> Contact</h2>
+        <p>
+          Questions about this policy, requests about your data, and parental
+          requests about a child's data all go to
+          <span class="todo">[[CONTACT_EMAIL]]</span>.
+        </p>
+        <p class="todo">[[EU_REPRESENTATIVE_BLOCK_OR_DELETE]]</p>
+      </article>
     </main>
 
     <footer class="site">
       <div class="wrap">
-        <p>
-          Flagful · <a href="/privacy.html">Privacy</a> ·
-          <a href="/privacy-kids.html">For kids</a>
-        </p>
+        <span>Flagful</span>
+        <span class="spacer"></span>
+        <a href="/">Home</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/privacy-kids.html">For kids</a>
       </div>
     </footer>
   </body>

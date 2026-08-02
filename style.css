@@ -1,126 +1,405 @@
-/* Flagful site — palette mirrors src/theme/tokens.ts in the app repo.
-   System font stack on purpose: loading Google Fonts would send every
-   visitor's IP address to Google, which is a poor look on a privacy policy
-   (and has been held to be a GDPR violation in the EU). */
+/* ─────────────────────────────────────────────────────────────────────────────
+   Flagful site — notebook chassis.
+
+   Palette, radii and the shadow are transcribed from src/theme/tokens.ts in the
+   app repo so the site and the app read as one product. Values are duplicated
+   here rather than imported because this is a dependency-free static site; if a
+   token moves in the app, move it here too.
+
+   Two deliberate constraints, both inherited from the app's visual language:
+
+   1. ONE shadow language. Every raised surface takes --shadow. Nothing gets a
+      bespoke drop shadow.
+   2. No gradient behind a heading. Backgrounds are flat colour or flat texture.
+      The only gradients here draw the spiral binding holes, which are artwork.
+
+   Fonts are self-hosted. Requesting them from Google would send every visitor's
+   IP to Google, which is a poor look on a privacy policy and has been held to
+   breach the GDPR in the EU. This page makes zero third-party requests.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: "Crimson Pro";
+  src: url("assets/fonts/crimson-pro-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("assets/fonts/nunito-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("assets/fonts/nunito-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
+  /* Backgrounds */
   --cream: #fff8e9;
+  --cream-deep: #f8edcf;
   --paper: #fbf6e7;
   --surface: #fbefd0;
+  --popup-paper: #f4dfb3;
+  --popup-note: #fff3d6;
+  --popup-emblem: #f3dba8;
+
+  /* Borders */
   --border: #d8bc84;
   --border-light: #e5d0a7;
+  --paper-line: #eadfc9;
+  --popup-border: #c99c4f;
+  --stitch: #c8a15d;
+
+  /* Ink */
   --ink: #0d4750;
-  --text: #2b3330;
-  --text-muted: #666457;
+  --teal-dark: #093a40;
+  --copy: #3d4036;
+  --muted: #666457;
+
+  /* Accents */
+  --green: #1f705b;
+  --green-dark: #0f4d41;
+  --gold-ink: #975d11;
   --amber: #b87312;
-  --shadow: rgba(140, 111, 54, 0.16);
+
+  /* Radii — Radii.* in tokens.ts */
+  --r-card-lg: 22px;
+  --r-card: 18px;
+  --r-button: 16px;
+  --r-pill: 29px;
+
+  /* The single shadow. Shadows.card in tokens.ts. */
+  --shadow: 0 5px 11px rgba(140, 111, 54, 0.16);
+
+  --serif: "Crimson Pro", Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --sans:
+    "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  padding: 0;
-  background: var(--cream);
-  color: var(--text);
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
+  background-color: var(--cream);
+  color: var(--copy);
+  font-family: var(--sans);
   font-size: 17px;
-  line-height: 1.65;
+  line-height: 1.68;
   -webkit-text-size-adjust: 100%;
+  position: relative;
+}
+
+/* Paper fibres over the whole page. Fixed and multiplied so the grain sits in
+   the paper rather than scrolling across it like a sticker. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("assets/paper-fibers.webp");
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
 }
 
 .wrap {
-  max-width: 46rem;
+  max-width: 52rem;
   margin: 0 auto;
-  padding: 2.5rem 1.25rem 4rem;
+  padding: 0 1.25rem;
 }
 
-header.site {
-  border-bottom: 1px solid var(--border-light);
-  background: var(--paper);
-}
+/* ── Header ────────────────────────────────────────────────────────────────── */
 
 header.site .wrap {
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
 }
 
-header.site a.brand {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--ink);
-  text-decoration: none;
-  letter-spacing: -0.01em;
+header.site .brand img {
+  display: block;
+  height: 38px;
+  width: auto;
 }
 
 header.site nav {
   margin-left: auto;
   display: flex;
-  gap: 1.25rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 header.site nav a {
-  color: var(--text-muted);
+  color: var(--ink);
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
 }
 
-header.site nav a:hover {
-  color: var(--ink);
-  text-decoration: underline;
+header.site nav a:hover,
+header.site nav a[aria-current="page"] {
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: var(--shadow);
 }
+
+/* ── The notebook page ─────────────────────────────────────────────────────── */
+
+.notebook {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card-lg);
+  box-shadow: var(--shadow);
+  padding: 2.75rem 2.5rem 3rem 5.25rem;
+  margin-bottom: 3rem;
+  overflow: hidden;
+}
+
+/* Binding gutter — a deeper strip of paper with a stitched edge. */
+.notebook::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3.25rem;
+  background: var(--cream-deep);
+  border-right: 2px dashed var(--stitch);
+}
+
+/* Punched rings. The only gradients on the site; they are artwork, not a scrim. */
+.notebook::after {
+  content: "";
+  position: absolute;
+  left: 1.15rem;
+  top: 2rem;
+  bottom: 2rem;
+  width: 15px;
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    #cbab74 0 5.5px,
+    #eadcbb 5.5px 7px,
+    transparent 7.5px
+  );
+  background-size: 15px 46px;
+  background-repeat: repeat-y;
+  /* Fade the strip out at the bottom. Without this the final ring is sliced
+     wherever the page happens to end, which reads as a smudge rather than a
+     punched hole. */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 calc(100% - 46px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 calc(100% - 46px),
+    transparent 100%
+  );
+}
+
+/* ── Type ──────────────────────────────────────────────────────────────────── */
 
 h1 {
+  font-family: var(--serif);
+  font-weight: 700;
   color: var(--ink);
-  font-size: 2.1rem;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  margin: 0 0 0.5rem;
+  font-size: 2.4rem;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.6rem;
 }
 
 h2 {
+  font-family: var(--serif);
+  font-weight: 700;
   color: var(--ink);
-  font-size: 1.3rem;
-  margin: 2.75rem 0 0.75rem;
-  letter-spacing: -0.01em;
+  font-size: 1.45rem;
+  line-height: 1.25;
+  margin: 3rem 0 0.85rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+}
+
+h2:first-of-type {
+  margin-top: 2rem;
+}
+
+/* Section medallion. Parchment disc, same shadow as every other raised thing. */
+h2 .num {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--popup-emblem);
+  border: 1px solid var(--popup-border);
+  box-shadow: var(--shadow);
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold-ink);
+  align-self: center;
 }
 
 h3 {
-  color: var(--ink);
-  font-size: 1.05rem;
-  margin: 1.75rem 0 0.5rem;
+  font-family: var(--serif);
+  font-weight: 700;
+  color: var(--teal-dark);
+  font-size: 1.13rem;
+  margin: 2rem 0 0.5rem;
+}
+
+p {
+  margin: 0 0 1rem;
 }
 
 p,
-li {
-  color: var(--text);
+li,
+td {
+  overflow-wrap: break-word;
 }
 
 a {
+  color: var(--green-dark);
+  text-underline-offset: 2px;
+}
+
+a:hover {
   color: var(--ink);
 }
 
-.meta {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  margin: 0 0 2rem;
+strong {
+  font-weight: 700;
+  color: var(--teal-dark);
 }
 
-.callout {
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 0.05em 0.35em;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 1.75rem;
+}
+
+.lede {
+  font-size: 1.1rem;
+  color: var(--copy);
+}
+
+/* ── Lists ─────────────────────────────────────────────────────────────────── */
+
+ul {
+  padding-left: 0;
+  list-style: none;
+  margin: 1rem 0;
+}
+
+ul li {
+  position: relative;
+  padding-left: 1.9rem;
+  margin: 0.55rem 0;
+}
+
+ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0.55rem;
+  color: var(--stitch);
+  font-weight: 700;
+}
+
+/* Marked lists. The glyph carries the meaning as well as the tint, so the
+   distinction survives without colour vision — same rule as the app's rubric. */
+ul.nope li::before,
+ul.yep li::before {
+  content: "✕";
+  left: 0;
+  top: 0.28em;
+  width: 1.3rem;
+  height: 1.3rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 0.72rem;
+  line-height: 1;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1.1rem 1.35rem;
+  color: var(--muted);
+}
+
+ul.yep li::before {
+  content: "✓";
+  background: #dcecc4;
+  border-color: #9dbd7e;
+  color: #39712f;
+}
+
+/* ── Callouts ──────────────────────────────────────────────────────────────── */
+
+.callout {
+  background: var(--popup-paper);
+  border: 1px solid var(--popup-border);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow);
+  padding: 1.35rem 1.5rem;
   margin: 1.75rem 0;
-  box-shadow: 0 5px 11px var(--shadow);
+  position: relative;
+}
+
+/* Stitched seam, echoing the app's popup cards. */
+.callout::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px dashed var(--stitch);
+  border-radius: calc(var(--r-card) - 6px);
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.callout > * {
+  position: relative;
+  z-index: 1;
 }
 
 .callout p:first-child {
@@ -131,82 +410,212 @@ a {
   margin-bottom: 0;
 }
 
-/* Unfilled facts. Deliberately loud — an unreplaced placeholder must be
-   impossible to miss on a published page. */
+.callout.note {
+  background: var(--popup-note);
+}
+
+.callout.with-icon {
+  display: flex;
+  gap: 1.15rem;
+  align-items: flex-start;
+}
+
+.callout .medallion {
+  flex: none;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 50%;
+  background: var(--popup-emblem);
+  border: 1px solid var(--popup-border);
+  box-shadow: var(--shadow);
+  display: grid;
+  place-items: center;
+  margin-top: 0.15rem;
+}
+
+.callout .medallion img {
+  width: 1.85rem;
+  height: 1.85rem;
+  object-fit: contain;
+}
+
+/* ── Placeholders ──────────────────────────────────────────────────────────── */
+
+/* Deliberately loud. An unreplaced placeholder on a live privacy policy must be
+   impossible to miss, so this is the one element allowed to shout. */
 .todo {
   background: #ffe08a;
-  border-bottom: 2px solid var(--amber);
+  border: 1px dashed var(--amber);
   color: #5c3a05;
   font-weight: 700;
-  padding: 0.05em 0.35em;
-  border-radius: 4px;
+  padding: 0.05em 0.4em;
+  border-radius: 5px;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.92em;
+  font-size: 0.88em;
+  /* Must be allowed to wrap. A long placeholder set to nowrap pushes the whole
+     page wider than a phone viewport and everything scrolls sideways. */
+  overflow-wrap: anywhere;
+}
+
+/* ── Tables ────────────────────────────────────────────────────────────────── */
+
+.table-scroll {
+  overflow-x: auto;
+  margin: 1.25rem 0;
+  border-radius: var(--r-button);
+  border: 1px solid var(--border);
+  background: var(--cream);
+  box-shadow: var(--shadow);
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.25rem 0;
   font-size: 0.95rem;
-}
-
-.table-scroll {
-  overflow-x: auto;
+  min-width: 30rem;
 }
 
 th,
 td {
   text-align: left;
-  padding: 0.6rem 0.75rem;
-  border-bottom: 1px solid var(--border-light);
+  padding: 0.7rem 1rem;
   vertical-align: top;
 }
 
-th {
+thead th {
+  background: var(--surface);
   color: var(--ink);
   font-weight: 700;
   border-bottom: 2px solid var(--border);
 }
 
-ul {
-  padding-left: 1.35rem;
+tbody tr + tr td {
+  border-top: 1px dashed var(--paper-line);
 }
 
-li {
-  margin: 0.35rem 0;
+/* ── Mascot ────────────────────────────────────────────────────────────────── */
+
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
+
+.hero-copy {
+  flex: 1 1 20rem;
+  min-width: 0;
+}
+
+.hero img.mascot {
+  flex: none;
+  width: min(15rem, 42vw);
+  height: auto;
+}
+
+/* A title-row mascot rather than a hero one — smaller, so a short heading beside
+   it does not leave a hole in the layout. */
+.hero.compact {
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.hero.compact .hero-copy {
+  flex: 1 1 16rem;
+}
+
+.hero.compact img.mascot {
+  width: min(9.5rem, 30vw);
+}
+
+img.mascot-inline {
+  float: right;
+  width: 8.5rem;
+  height: auto;
+  margin: 0 0 1rem 1.5rem;
+  shape-outside: circle();
+}
+
+img.mascot-centre {
+  display: block;
+  margin: 0 auto 1.5rem;
+  width: min(13rem, 45vw);
+  height: auto;
+}
+
+/* ── Cut line ──────────────────────────────────────────────────────────────── */
+
+.cutline {
+  border: 0;
+  border-top: 2px dashed var(--border);
+  margin: 2.5rem 0;
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────────── */
 
 footer.site {
-  border-top: 1px solid var(--border-light);
-  margin-top: 3rem;
-  color: var(--text-muted);
+  color: var(--muted);
   font-size: 0.9rem;
 }
 
 footer.site .wrap {
+  border-top: 2px dashed var(--border);
   padding-top: 1.5rem;
-  padding-bottom: 2.5rem;
+  padding-bottom: 3rem;
+  display: flex;
+  gap: 1rem 1.5rem;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 footer.site a {
-  color: var(--text-muted);
+  color: var(--muted);
 }
 
-/* The child-facing summary reads at a much larger size on purpose — the UK
-   Children's Code asks for age-appropriate presentation, not just plain words. */
+footer.site .spacer {
+  margin-left: auto;
+}
+
+/* ── Child-facing summary ──────────────────────────────────────────────────── */
+
+/* Larger everything. The UK Children's Code asks for age-appropriate
+   presentation, which is a matter of size and pacing as much as vocabulary. */
 body.kids {
   font-size: 20px;
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 body.kids h1 {
-  font-size: 2rem;
+  font-size: 2.2rem;
+  text-align: center;
 }
 
 body.kids h2 {
-  font-size: 1.45rem;
-  margin-top: 2.25rem;
+  font-size: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+body.kids .meta {
+  text-align: center;
+  font-size: 1.02rem;
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 44rem) {
+  .notebook {
+    padding: 2rem 1.4rem 2.25rem 3.6rem;
+  }
+
+  .notebook::before {
+    width: 2.2rem;
+  }
+
+  .notebook::after {
+    left: 0.7rem;
+    width: 13px;
+    background-size: 13px 40px;
+  }
 }
 
 @media (max-width: 34rem) {
@@ -214,11 +623,70 @@ body.kids h2 {
     font-size: 16px;
   }
 
-  h1 {
-    font-size: 1.7rem;
+  body.kids {
+    font-size: 18px;
   }
 
-  .wrap {
-    padding-top: 1.75rem;
+  h1 {
+    font-size: 1.85rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  img.mascot-inline {
+    float: none;
+    display: block;
+    margin: 0 auto 1rem;
+  }
+
+  .hero.compact img.mascot {
+    margin: 0 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ── Print ─────────────────────────────────────────────────────────────────── */
+
+/* People do save privacy policies as PDFs. Strip the chassis, keep the words. */
+@media print {
+  body {
+    background: #fff;
+    font-size: 11pt;
+  }
+
+  body::before,
+  .notebook::before,
+  .notebook::after,
+  .callout::after,
+  header.site nav,
+  img.mascot,
+  img.mascot-inline,
+  img.mascot-centre {
+    display: none;
+  }
+
+  .notebook {
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    background: none;
+  }
+
+  .callout,
+  .table-scroll {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  h2,
+  h3 {
+    break-after: avoid;
   }
 }
