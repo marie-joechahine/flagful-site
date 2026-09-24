@@ -54,28 +54,44 @@ meant to be obvious.
 | `[[LEGAL_ENTITY]]`                      | privacy.html                              | The legal publisher name that will appear in Play Console.                                               |
 | `[[POSTAL_ADDRESS]]`                    | privacy.html                              | A contactable postal address. Required by GDPR Art. 13; Play shows a developer address on public listings. |
 | `[[CONTACT_EMAIL]]`                     | privacy.html (×3), privacy-kids.html, index.html | A monitored address. This is where parental deletion requests arrive.                            |
-| `[[ANALYTICS_LEGAL_BASIS]]`             | privacy.html §5                           | **Blocked** — see below.                                                                                  |
 | `[[POSTHOG_RETENTION]]`                 | privacy.html §7                           | A concrete period, e.g. `12 months`. Set it in the PostHog project first, then state it here.             |
 | `[[SENTRY_RETENTION]]`                  | privacy.html §7                           | A concrete period. Sentry's default is 90 days; confirm on your plan.                                     |
 | `[[EU_REPRESENTATIVE_BLOCK_OR_DELETE]]` | privacy.html §12                          | Name and address of a GDPR Art. 27 representative if one is required, otherwise delete the paragraph.     |
 
-### `[[ANALYTICS_LEGAL_BASIS]]` is blocked on a product decision
+## Make these true before publishing
 
-This one cannot be filled honestly yet. `docs/compliance.md` §4.3 is still open:
-analytics currently start on first launch with no notice, no consent and no
-opt-out, while storing a persistent device identifier.
+The policy is written for the **adults-only Play closed beta**, which keeps
+PostHog and Sentry. Several sentences describe settings that live outside this
+repo, so they are only true once each item below is done. Publishing first makes
+the policy inaccurate, which is its own violation.
 
-- Claiming **consent** would be false — nothing in the app asks for it.
-- Claiming **legitimate interests** is legally weak, because ePrivacy Art. 5(3)
-  requires consent to store or read an identifier on a device regardless of which
-  GDPR basis you pick, and a child cannot give valid consent anyway.
+- [ ] **PostHog → Project settings → "Discard client IP data"** on. §3.1 says no
+      location is worked out from the IP, and GeoIP runs by default without it.
+- [ ] **Sentry → Security & Privacy → "Prevent storing of IP addresses"** on.
+      §3.2 says Sentry does not store the IP; `sendDefaultPii: false` in the app
+      only stops the SDK *adding* it.
+- [ ] **Retention** set in both dashboards, then written into §7.
+- [ ] **Data processing agreements** accepted with PostHog, Sentry and Expo. §4
+      ("contractually barred") and §9 (Standard Contractual Clauses) depend on it.
+- [ ] **The beta build strips `$timezone` and `$locale`** (`src/lib/posthogClient.ts`
+      in the app repo). §3.1 says it does. A build made before that change
+      sends both.
+- [ ] **The tester invitation asks for consent.** §5 relies on it — put words to
+      this effect in the Google Group description or opt-in message: _"Test
+      builds send anonymous usage analytics and crash reports to PostHog and
+      Sentry (EU). By joining you agree to this. Please do not let children use
+      test builds."_
+- [ ] **Open one real Sentry event** from the beta build and confirm it carries
+      no device name (such as "Marie's phone"), only the model.
 
-Resolve §4.3 first (the Path A / Path B decision in §2 of that document), then
-write this line to match what the app actually does. If Path A lands and the
-persistent identifier goes away, several other paragraphs in §3.1, §6 and §8 get
-shorter and stronger too.
+### Before public release
 
-Everything else on the page can be published today.
+The analytics legal basis in §5 and the beta callout in §6 are beta-only. Before
+any open or production track, resolve `docs/compliance.md` §4.3 (the audience
+decision in §2 of that document) and rewrite both to match what the app then
+does. Two sentences were removed rather than softened, and can come back once
+they are true: the written information security policy (§10;
+`docs/compliance.md` §7.2) and an in-app reset option (§8).
 
 ## Local preview
 

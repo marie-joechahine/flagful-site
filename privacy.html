@@ -51,11 +51,11 @@
             <p><strong>The short version.</strong></p>
             <p>
               Flagful has no accounts and no server of its own. Your drawings,
-              your scores and your progress never leave your device. The app
-              does send anonymous usage statistics and crash reports so we can
-              fix bugs and understand which lessons work. It has no ads, asks
-              for no personal details, and contains no place to type free text
-              anywhere.
+              your scores and your progress are never sent to us. The app does
+              send anonymous usage statistics and crash reports so we can fix
+              bugs and understand which lessons work. It has no ads and asks for
+              no personal details. Its only text field is the flag search, and
+              what you type there never leaves your device.
             </p>
             <p>
               There is a shorter version written for children at
@@ -88,17 +88,21 @@
             us
           </li>
           <li>
-            <strong>No free-text input anywhere in the app.</strong> There is no
-            comment box, feedback form, chat or search field, so it is not
-            possible to type personal information into Flagful even by accident.
+            <strong>Nothing you type is collected.</strong> There is no comment
+            box, feedback form or chat. The only text field is the flag search:
+            it filters the list on your device, and we record only that a search
+            was made, never the words.
           </li>
         </ul>
 
         <h2><span class="num">2</span> What stays on your device</h2>
         <p>
           The following is stored only in the app's own storage on your device.
-          It is not transmitted to us or to anyone else, and it is deleted when
-          you uninstall the app:
+          It is never transmitted to us. If your device's own backup is switched
+          on (Google backup on Android, iCloud or a computer backup on iPhone and
+          iPad), it is included in that backup, which is held by your device's
+          provider under your account. We cannot see those backups.
+          Uninstalling the app deletes the copy on the device:
         </p>
         <ul class="yep">
           <li>The flags you have drawn and coloured</li>
@@ -130,9 +134,16 @@
           <li>
             Basic device context: app version, platform (Android or iOS),
             operating system version, device language, app language, and whether
-            the device is a phone or a tablet.
+            the device is a phone or a tablet. The app deliberately removes the
+            time zone and locale that the analytics library would otherwise
+            attach on its own.
           </li>
         </ul>
+        <p>
+          PostHog is configured to discard the IP address your device connects
+          from, so no location is worked out from it — not even a country or a
+          city.
+        </p>
         <p>
           We do <strong>not</strong> send your drawings, your images, or any
           text. Analytics are disabled entirely in development builds. Data is
@@ -148,14 +159,16 @@
           and 10% of performance profiles) is also sent to find slowdowns.
         </p>
         <p>
-          Sentry is explicitly configured <em>not</em> to attach personal data:
-          IP addresses, request headers and user context are switched off in the
-          app. Reports go to Sentry's European region.
+          The app is explicitly configured <em>not</em> to attach personal data
+          to these reports: request headers and user context are switched off,
+          and Sentry is set not to store the IP address a report arrives from.
+          Reports go to Sentry's European region.
         </p>
 
         <h3>3.3 App update checks (Expo)</h3>
         <p>
-          When the app starts it asks our update service whether a newer version
+          When the app starts it asks Expo's update service, which delivers our
+          updates, whether a newer version
           of the app's content is available. That request includes an
           installation identifier, the app and runtime version, the platform and
           the operating system version. It is how bug fixes reach you without
@@ -217,7 +230,11 @@
             <tbody>
               <tr>
                 <td>Usage analytics (§3.1)</td>
-                <td><span class="todo">[[ANALYTICS_LEGAL_BASIS]]</span></td>
+                <td>
+                  Consent — during closed testing, given when you join the test
+                  (see §6). We will review this before public release and update
+                  this policy first.
+                </td>
               </tr>
               <tr>
                 <td>Crash and performance reports (§3.2)</td>
@@ -238,6 +255,16 @@
         </div>
 
         <h2><span class="num">6</span> Children</h2>
+        <div class="callout note">
+          <p>
+            <strong>During closed testing.</strong> Test versions of Flagful are
+            available only to adults we invite. Testers agree, when they join,
+            to the usage analytics and crash reports described in §3, and are
+            asked not to let children use test versions. The rest of this
+            section describes how the released app treats children; we will
+            revise it before public release.
+          </p>
+        </div>
         <p>
           Flagful is suitable for children and we expect children to use it. We
           have designed it so that using it reveals as little as possible about
@@ -249,8 +276,8 @@
             personalised advertising of any kind.
           </li>
           <li>
-            There is nowhere in the app for a child to type their name, age,
-            location or anything else about themselves.
+            Nothing a child types is collected. The only text field is the flag
+            search, and what is typed there stays on the device.
           </li>
           <li>Drawings and progress stay on the device and are never uploaded.</li>
           <li>
@@ -293,8 +320,14 @@
         <ul>
           <li>
             <strong>To delete everything held on your device:</strong> uninstall
-            the app, or use the reset option in the app's settings. This is
-            immediate and needs no request to us.
+            the app. This is immediate and needs no request to us. If your
+            device backup is on, also delete Flagful's data from that backup in
+            your Google or Apple account settings.
+          </li>
+          <li>
+            <strong>To stop analytics and crash reports:</strong> uninstall the
+            app. There is no switch for this inside the app yet. Testers can
+            also leave the test from the app's Google Play page.
           </li>
           <li>
             <strong>For anything held by our processors:</strong> write to
@@ -332,15 +365,13 @@
           All data sent by the app travels over encrypted connections. Because
           Flagful holds no accounts, no passwords and no directly identifying
           information, the consequences of any incident are limited by design.
-          We maintain a written information security policy covering who is
-          responsible and the risks it addresses.
         </p>
 
         <h2><span class="num">11</span> Changes to this policy</h2>
         <p>
           If we change what the app collects, we will update this page and
           change the &ldquo;last updated&rdquo; date above before the change
-          reaches you. Significant changes will also be noted in the app.
+          reaches you.
         </p>
 
         <h2><span class="num">12</span> Contact</h2>
