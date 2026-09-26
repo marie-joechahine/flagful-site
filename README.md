@@ -36,8 +36,10 @@ To regenerate the images after changing the originals, run a `sharp` resize from
 the **app** repo (it has the dependency): widths 400 for the logo, 320–560 for
 the mascots, 900 for the texture at quality 52, 96–128 for icons.
 
-Source of truth for the policy's factual claims is `docs/compliance.md` §3 in the
-app repo, which was written by reading the code.
+Check the app's shipped behavior and `src/lib/featureFlags.ts` when reviewing
+policy claims. The current release has sharing, gameplay analytics and
+third-party error reporting off for everyone. `docs/compliance.md` contains
+background research; older beta assumptions in it are not release evidence.
 
 > This is not legal advice. Have counsel review the text before it is published,
 > particularly §5 (legal bases), §6 (children) and §7 (retention).
@@ -48,50 +50,64 @@ Every one appears on the page as a loud amber `[[PLACEHOLDER]]`. Search the repo
 for `[[` to find any you missed — if one is still visible on the live site, it is
 meant to be obvious.
 
-| Placeholder                             | Where                                     | What it needs                                                                                            |
-| --------------------------------------- | ----------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `[[PUBLISH_DATE]]`                      | privacy.html (×2)                          | The date you publish, e.g. `2 August 2026`. Update the second one on every later edit.                    |
-| `[[LEGAL_ENTITY]]`                      | privacy.html                              | The legal publisher name that will appear in Play Console.                                               |
-| `[[POSTAL_ADDRESS]]`                    | privacy.html                              | A contactable postal address. Required by GDPR Art. 13; Play shows a developer address on public listings. |
-| `[[CONTACT_EMAIL]]`                     | privacy.html (×3), privacy-kids.html, index.html | A monitored address. This is where parental deletion requests arrive.                            |
-| `[[POSTHOG_RETENTION]]`                 | privacy.html §7                           | A concrete period, e.g. `12 months`. Set it in the PostHog project first, then state it here.             |
-| `[[SENTRY_RETENTION]]`                  | privacy.html §7                           | A concrete period. Sentry's default is 90 days; confirm on your plan.                                     |
-| `[[EU_REPRESENTATIVE_BLOCK_OR_DELETE]]` | privacy.html §12                          | Name and address of a GDPR Art. 27 representative if one is required, otherwise delete the paragraph.     |
+| Placeholder                                        | What it needs                                                                                                                                          |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `[[PUBLISH_DATE]]`                                 | Actual effective date; update the separate last-updated date on later edits.                                                                           |
+| `[[LEGAL_ENTITY]]`                                 | Publisher name matching the store listing.                                                                                                             |
+| `[[POSTAL_ADDRESS]]`                               | Publisher's contactable postal address.                                                                                                                |
+| `[[CONTACT_EMAIL]]`                                | Monitored support and privacy address.                                                                                                                 |
+| `[[EMAIL_PROVIDER]]`                               | The service actually handling support correspondence.                                                                                                  |
+| `[[UPDATE_PROCESSING_LEGAL_BASIS]]`                | Confirm the lawful basis for the actual update processing; do not assume installing the app supplies consent or a contract with a child.               |
+| `[[CORRESPONDENCE_RETENTION]]`                     | Actual support/privacy-request retention periods, including justified exceptions.                                                                      |
+| `[[UPDATE_RECORD_RETENTION]]`                      | Confirm technical record retention with Expo under the applicable service terms.                                                                       |
+| `[[PROCESSING_LOCATIONS_AND_TRANSFER_SAFEGUARDS]]` | Verify provider locations and applicable transfer safeguards, including the email provider. Do not claim agreements have been signed without checking. |
+| `[[EU_REPRESENTATIVE_BLOCK_OR_DELETE]]`            | Representative details if required; otherwise remove the paragraph.                                                                                    |
 
-## Make these true before publishing
+## Before publishing
 
-The policy is written for the **adults-only Play closed beta**, which keeps
-PostHog and Sentry. Several sentences describe settings that live outside this
-repo, so they are only true once each item below is done. Publishing first makes
-the policy inaccurate, which is its own violation.
+This PR describes the release with analytics, error reporting and sharing off
+for everyone, including children. It does not publish the app or change store
+audience declarations. The pages remain a draft until the placeholders and
+checks below are resolved.
 
-- [ ] **PostHog → Project settings → "Discard client IP data"** on. §3.1 says no
-      location is worked out from the IP, and GeoIP runs by default without it.
-- [ ] **Sentry → Security & Privacy → "Prevent storing of IP addresses"** on.
-      §3.2 says Sentry does not store the IP; `sendDefaultPii: false` in the app
-      only stops the SDK *adding* it.
-- [ ] **Retention** set in both dashboards, then written into §7.
-- [ ] **Data processing agreements** accepted with PostHog, Sentry and Expo. §4
-      ("contractually barred") and §9 (Standard Contractual Clauses) depend on it.
-- [ ] **The beta build strips `$timezone` and `$locale`** (`src/lib/posthogClient.ts`
-      in the app repo). §3.1 says it does. A build made before that change
-      sends both.
-- [ ] **The tester invitation asks for consent.** §5 relies on it — put words to
-      this effect in the Google Group description or opt-in message: _"Test
-      builds send anonymous usage analytics and crash reports to PostHog and
-      Sentry (EU). By joining you agree to this. Please do not let children use
-      test builds."_
-- [ ] **Open one real Sentry event** from the beta build and confirm it carries
-      no device name (such as "Marie's phone"), only the model.
+- [ ] Ship and verify the build with `ANALYTICS_ENABLED`,
+      `ERROR_REPORTING_ENABLED` and `SHARING_ENABLED` all `false`. Confirm no
+      analytics or reporting requests on startup, during play or after errors,
+      including an upgrade from an older build and offline/relaunch behavior.
+- [ ] Confirm the actual update request data and retention, applicable provider
+      terms, support email handling and transfer safeguards; fill the placeholders.
+- [ ] Check whether earlier test builds collected data that is still retained.
+      Disabling SDK startup does not delete remote records or old local queues.
+      If records remain, add a version/date-specific historical-data disclosure
+      with its purpose, providers, retention and deletion process before publishing.
+      If no records remain, document that verification privately. This PR does
+      not claim to have deleted or inspected those records.
+- [ ] Check any older builds still distributed or used by testers. Do not apply
+      the new no-analytics statement to a version that still sends events.
+- [ ] Align Play Data safety, App Store privacy disclosures and target-audience
+      declarations with the versions actually distributed. Google Play's form
+      covers all versions currently distributed under the package name.
+- [ ] Confirm the operating-system/app-store diagnostics available to the
+      publisher; describe them separately if you use or retain those reports.
+- [ ] Keep the privacy link accessible in the app and both store listings.
+- [ ] Review both public policies and the home page together; resolve all `[[...]]`
+      placeholders before merging to `main`, which publishes the site.
 
-### Before public release
+## If collection or sharing changes later
 
-The analytics legal basis in §5 and the beta callout in §6 are beta-only. Before
-any open or production track, resolve `docs/compliance.md` §4.3 (the audience
-decision in §2 of that document) and rewrite both to match what the app then
-does. Two sentences were removed rather than softened, and can come back once
-they are true: the written information security policy (§10;
-`docs/compliance.md` §7.2) and an in-app reset option (§8).
+Update the policy and store disclosures before releasing the change. Implement
+any required notice, age/eligibility checks and user or parental consent before
+collection starts. Updating this page alone does not authorize collection.
+Review old SDK queues before re-enabling reporting so old events are not uploaded
+under a new permission decision. Add active providers only when their processing
+is actually part of the service; the public pages need no inventory of unused SDKs.
+
+## Sources checked for this revision
+
+- [Google Play User Data policy](https://support.google.com/googleplay/android-developer/answer/10144311?hl=en)
+- [Google Play Data safety guidance](https://support.google.com/googleplay/android-developer/answer/10787469?hl=en)
+- [Expo privacy explained](https://expo.dev/privacy-explained)
+- [GitHub privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)
 
 ## Local preview
 
